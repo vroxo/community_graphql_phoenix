@@ -18,7 +18,7 @@ defmodule Community.News do
 
   """
   def list_links do
-    Repo.all(Link)
+    Repo.all(from l in Link, preload: :user)
   end
 
   @doc """
