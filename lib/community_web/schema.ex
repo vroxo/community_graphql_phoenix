@@ -1,17 +1,24 @@
 defmodule CommunityWeb.Schema do
     use Absinthe.Schema
 
-    alias Community.News
     alias CommunityWeb.NewsResolver
+
+    object :user do
+        field :id, non_null(:id)
+        field :name, non_null(:string)
+        field :email, non_null(:string)
+    end
 
     object :link do
         field :id, non_null(:id)
         field :url, non_null(:string)
         field :description, non_null(:string)
+        field :user, :user 
     end
 
+
     query do
-        field :all_links, non_null(list_of(non_null(:link))) do
+        field :feed, non_null(list_of(non_null(:link))) do
             resolve &NewsResolver.all_links/3
         end
     end
